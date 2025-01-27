@@ -1,32 +1,0 @@
-Traceback (most recent call last):
-  File "eval.py", line 18, in <module>
-    translated_tokens = model.generate(
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
-    return func(*args, **kwargs)
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/transformers/generation/utils.py", line 2027, in generate
-    model_kwargs = self._prepare_encoder_decoder_kwargs_for_generation(
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/transformers/generation/utils.py", line 635, in _prepare_encoder_decoder_kwargs_for_generation
-    model_kwargs["encoder_outputs"]: ModelOutput = encoder(**encoder_kwargs)  # type: ignore
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/transformers/models/m2m_100/modeling_m2m_100.py", line 1028, in forward
-    inputs_embeds = self.embed_tokens(input_ids)
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/btech/2022/ahlad.pataparla22b/nllb/.venv/lib64/python3.8/site-packages/transformers/models/m2m_100/modeling_m2m_100.py", line 103, in forward
-    return super().forward(input_ids) * self.embed_scale
-RuntimeError: [enforce fail at alloc_cpu.cpp:83] err == 0. DefaultCPUAllocator: can't allocate memory: you tried to allocate 157412229120 bytes. Error code 12 (Cannot allocate memory)
-You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
-Your input_length: 122 is bigger than 0.9 * max_length: 128. You might consider increasing your max_length manually, e.g. translator('...', max_length=400)
-Token indices sequence length is longer than the specified maximum sequence length for this model (1474 > 1024). Running this sequence through the model will result in indexing errors
-Your input_length: 1474 is bigger than 0.9 * max_length: 128. You might consider increasing your max_length manually, e.g. translator('...', max_length=400)
-Your input_length: 117 is bigger than 0.9 * max_length: 128. You might consider increasing your max_length manually, e.g. translator('...', max_length=400)
-Translation complete! Check the output file: ../../datasets/translated_manual_en.txt
-8:52:13.060886
-Map:   0%|          | 0/50000 [00:00<?, ? examples/s]Map:   0%|          | 128/50000 [00:23<2:31:23,  5.49 examples/s]Map:   1%|          | 256/50000 [00:46<2:30:19,  5.52 examples/s]Map:   1%|          | 384/50000 [01:10<2:32:18,  5.43 examples/s]Map:   0%|          | 0/50000 [00:00<?, ? examples/s]Map:   2%|▏         | 1024/50000 [03:09<2:31:18,  5.39 examples/s]Map:   4%|▍         | 2048/50000 [07:03<2:48:05,  4.75 examples/s]Map:   6%|▌         | 3072/50000 [10:59<2:51:46,  4.55 examples/s]Map:   8%|▊         | 4096/50000 [14:21<2:41:19,  4.74 examples/s]Map:  10%|█         | 5120/50000 [18:08<2:40:46,  4.65 examples/s]Map:  12%|█▏        | 6144/50000 [22:18<2:44:22,  4.45 examples/s]Map:  14%|█▍        | 7168/50000 [26:30<2:45:16,  4.32 examples/s]Map:  16%|█▋        | 8192/50000 [31:21<2:53:05,  4.03 examples/s]Your input_length: 197 is bigger than 0.9 * max_length: 128. You might consider increasing your max_length manually, e.g. translator('...', max_length=400)
-Map:  18%|█▊        | 9216/50000 [36:57<3:05:44,  3.66 examples/s]Map:  20%|██        | 10240/50000 [42:37<3:13:05,  3.43 examples/s]You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
-Map:  23%|██▎       | 11264/50000 [48:19<3:16:41,  3.28 examples/s]Map:  25%|██▍       | 12288/50000 [53:58<3:16:30,  3.20 examples/s]Map:  27%|██▋       | 13312/50000 [59:34<3:13:59,  3.15 examples/s]Map:  29%|██▊       | 14336/50000 [1:05:24<3:12:54,  3.08 examples/s]

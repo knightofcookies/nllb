@@ -1,14 +1,16 @@
 from nltk.translate.bleu_score import sentence_bleu
 from nltk.translate.bleu_score import SmoothingFunction
-# from sacrebleu import BLEU
+from sacrebleu import BLEU
 
 
-# bleu = BLEU()
+bleu = BLEU()
 
-with open("../../datasets/manual_en.txt", "r", encoding="utf-8") as file:
+with open("../../datasets/samanantar_filtered_en.txt", "r", encoding="utf-8") as file:
     target_sentences = [line.strip() for line in file]
 
-with open("../../datasets/translated_manual_kha.txt", "r", encoding="utf-8") as file:
+with open(
+    "../../datasets/translated_samanantar_filtered_kha.txt", "r", encoding="utf-8"
+) as file:
     translated_sentences = [line.strip() for line in file]
 
 # target_sentences = ["I went to visit my aunt yesterday."]
@@ -22,6 +24,9 @@ bleu_scores = [
 ]
 
 average_bleu_score = sum(bleu_scores) / len(bleu_scores)
-print(f"Average BLEU score = {average_bleu_score}")
+print(f"Average BLEU score (NLTK) = {average_bleu_score}")
 
-# print(bleu.corpus_score(target_sentences, translated_sentences))
+print(
+    "Corpus score (sacrebleu): ",
+    bleu.corpus_score(target_sentences, translated_sentences),
+)
