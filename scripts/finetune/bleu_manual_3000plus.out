@@ -1,0 +1,3 @@
+Average BLEU score (NLTK) = 0.44262970805235535
+Corpus BLEU score (sacrebleu):  BLEU = 1.51 15.8/1.1/0.7/0.5 (BP = 1.000 ratio = 5.700 hyp_len = 57 ref_len = 10)
+Corpus CHRF++ score (sacrebleu):  chrF2++ = 30.19

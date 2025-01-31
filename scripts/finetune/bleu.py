@@ -1,20 +1,19 @@
 from nltk.translate.bleu_score import sentence_bleu
 from nltk.translate.bleu_score import SmoothingFunction
-from sacrebleu import BLEU
+import sacrebleu
+import pandas as pd
 
+bleu = sacrebleu.BLEU()
 
-bleu = BLEU()
+trans_df = pd.read_csv(
+    # "../../datasets/translated_samanantar_50k_filtered.tsv",
+    "../../datasets/translated_manual_corpus.csv",
+    engine="python",
+    # sep="\t\t\t\t\t",
+)
 
-with open("../../datasets/samanantar_filtered_en.txt", "r", encoding="utf-8") as file:
-    target_sentences = [line.strip() for line in file]
-
-with open(
-    "../../datasets/translated_samanantar_filtered_kha.txt", "r", encoding="utf-8"
-) as file:
-    translated_sentences = [line.strip() for line in file]
-
-# target_sentences = ["I went to visit my aunt yesterday."]
-# translated_sentences = ["I got to visit my aunt yesterday."]
+target_sentences = trans_df["en"].to_list()[20000:]
+translated_sentences = trans_df["translated_kha"].to_list()[20000:]
 
 smooth_fn = SmoothingFunction().method1
 
@@ -27,6 +26,11 @@ average_bleu_score = sum(bleu_scores) / len(bleu_scores)
 print(f"Average BLEU score (NLTK) = {average_bleu_score}")
 
 print(
-    "Corpus score (sacrebleu): ",
+    "Corpus BLEU score (sacrebleu): ",
     bleu.corpus_score(target_sentences, translated_sentences),
+)
+
+print(
+    "Corpus CHRF++ score (sacrebleu): ",
+    sacrebleu.corpus_chrf(target_sentences, translated_sentences, word_order=2),
 )
