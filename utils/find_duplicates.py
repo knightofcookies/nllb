@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 
 
 def find_duplicate_sentences(df, sentence_column):
@@ -34,9 +35,7 @@ def find_duplicate_sentences_with_context(df, sentence_column):
 
 
 if __name__ == "__main__":
-    df = pd.read_csv(
-        "../datasets/samanantar_without_en_duplicates.tsv", sep="\t\t\t\t\t", engine="python"
-    )
+    df = pd.read_csv(sys.argv[1], sep="\t\t\t\t\t", engine="python")
 
     duplicates = find_duplicate_sentences(df, "en")
     if duplicates:

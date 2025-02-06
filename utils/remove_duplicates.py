@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 
 
@@ -10,11 +11,7 @@ def remove_duplicate_sentences(df, sentence_column, keep="first"):
 
 
 if __name__ == "__main__":
-    df = pd.read_csv(
-        "../datasets/samanantar_without_en_duplicates.tsv", sep="\t\t\t\t\t", engine="python"
-    )
+    df = pd.read_csv(sys.argv[1], sep="\t\t\t\t\t", engine="python")
 
-    df_no_dupes_first = remove_duplicate_sentences(df, "kha", keep="first")
-    df_no_dupes_first.to_csv(
-        "../datasets/samanantar_without_duplicates.tsv", sep="\x1f", index=False
-    )
+    df_no_dupes_first = remove_duplicate_sentences(df, sys.argv[3], keep="first")
+    df_no_dupes_first.to_csv(sys.argv[2], sep="\x1f", index=False)

@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 
 
@@ -16,7 +17,7 @@ def split_dataframe_randomly(df, num_samples=50000):
 
 if __name__ == "__main__":
     original_df = pd.read_csv(
-        "../datasets/samanantar_without_duplicates.tsv",
+        sys.argv[1],
         sep="\t\t\t\t\t",
         engine="python",
     )
@@ -24,8 +25,8 @@ if __name__ == "__main__":
     sample_size = 50000
     sampled_df, remaining_df = split_dataframe_randomly(original_df, sample_size)
 
-    sampled_df.to_csv("sampled.tsv", sep="\x1f", index=False)
-    remaining_df.to_csv("remaining.tsv", sep="\x1f", index=False)
+    sampled_df.to_csv(sys.argv[2], sep="\x1f", index=False)
+    remaining_df.to_csv(sys.argv[3], sep="\x1f", index=False)
 
     if sampled_df is not None and remaining_df is not None:
         print("Sampled DataFrame:")

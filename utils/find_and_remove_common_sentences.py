@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 
 
@@ -20,8 +21,8 @@ def find_and_remove_common_sentences(
     common_2_3 = list(sentences2.intersection(sentences3))
     common_1_2_3 = list(sentences1.intersection(sentences2).intersection(sentences3))
 
-    # df1_filtered = df1[~df1[sentence_column_1].isin(common_1_3)].copy()
-    # df2_filtered = df2[~df2[sentence_column_2].isin(common_2_3)].copy()
+    df1_filtered = df1[~df1[sentence_column_1].isin(common_1_3)].copy()
+    df2_filtered = df2[~df2[sentence_column_2].isin(common_2_3)].copy()
 
 
     return {
@@ -29,39 +30,39 @@ def find_and_remove_common_sentences(
         "1_3": common_1_3,
         "2_3": common_2_3,
         "1_2_3": common_1_2_3,
-        # "df1_filtered":df1_filtered,
-        # "df2_filtered":df2_filtered
+        "df1_filtered":df1_filtered,
+        "df2_filtered":df2_filtered
     }
 
 
 if __name__ == "__main__":
     df1 = pd.read_csv(
-        "../datasets/samanantar_4950k_filtered.tsv", engine="python", sep="\t\t\t\t\t"
+        sys.argv[1], engine="python", sep="\t\t\t\t\t"
     )
     df2 = pd.read_csv(
-        "../datasets/samanantar_50k_filtered.tsv", engine="python", sep="\t\t\t\t\t"
+        sys.argv[2], engine="python", sep="\t\t\t\t\t"
     )
-    df3 = pd.read_csv("../datasets/manual_corpus.csv")
+    df3 = pd.read_csv(sys.argv[3])
 
     results = find_and_remove_common_sentences(
-        df1, df2, df3, "kha", "kha", "kha"
+        df1, df2, df3, sys.argv[4], sys.argv[4], sys.argv[4]
     )
 
     common_sentences = results["1_2"],results["1_3"],results["2_3"],results["1_2_3"]
 
-    # df1_filtered = results["df1_filtered"]
-    # df2_filtered = results["df2_filtered"]
+    df1_filtered = results["df1_filtered"]
+    df2_filtered = results["df2_filtered"]
 
     with open("output.out", "w", encoding="utf-8") as fp:
-        print("For kha:",file=fp)
+        print(f"For {sys.argv[4]}:",file=fp)
         print("Common sentences between df1 and df2:", common_sentences[0], file=fp)
         print("Common sentences between df1 and df3:", common_sentences[1], file=fp)
         print("Common sentences between df2 and df3:", common_sentences[2], file=fp)
         print("Common sentences between df1, df2, and df3:", common_sentences[3], file=fp)
         
-    # print("df1 filtered shape:", df1_filtered.shape)
-    # print("df2 filtered shape:", df2_filtered.shape)
+    print("df1 filtered shape:", df1_filtered.shape)
+    print("df2 filtered shape:", df2_filtered.shape)
 
 
-    # df1_filtered.to_csv("samanantar_4950k.csv", index=False, sep="\x1f")
-    # df2_filtered.to_csv("samanantar_50k.csv", index=False, sep="\x1f")
+    df1_filtered.to_csv(sys.argv[5], index=False, sep="\x1f")
+    df2_filtered.to_csv(sys.argv[6], index=False, sep="\x1f")
