@@ -1,0 +1,21 @@
+19.1s 1 2025-04-02 11:15:06.880999: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+19.3s 2 2025-04-02 11:15:07.066995: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+19.3s 3 2025-04-02 11:15:07.127522: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+44.4s 4 Device set to use cuda:0
+1251.5s 5 You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+6234.4s 6 Translation complete! Check the output file: translated_samanantar_small_test.tsv
+6234.4s 7 Time taken: 1:43:24.022996
+6235.6s 8 [?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/51.8 kB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m51.8/51.8 kB[0m [31m1.9 MB/s[0m eta [36m0:00:00[0m
+6235.8s 9 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/104.1 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m104.1/104.1 kB[0m [31m5.4 MB/s[0m eta [36m0:00:00[0m
+6245.0s 10 [?25hAverage BLEU score (NLTK) = 0.7831620008061947
+6249.0s 11 Corpus BLEU score (NLTK) = 0.815549870944849
+6249.0s 12 Corpus BLEU score (sacrebleu):  BLEU = 0.00 0.0/0.0/0.0/0.0 (BP = 1.000 ratio = 3.000 hyp_len = 3 ref_len = 1)
+6250.2s 13 Corpus CHRF++ score (sacrebleu):  chrF2++ = 22.73
+6255.0s 14 /usr/local/lib/python3.10/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=["remove_papermill_header.RemovePapermillHeader"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.
+6255.0s 15 warn(
+6255.0s 16 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+6255.4s 17 [NbConvertApp] Writing 97325 bytes to __notebook__.ipynb
+6256.6s 18 /usr/local/lib/python3.10/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=["nbconvert.preprocessors.ExtractOutputPreprocessor"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.
+6256.6s 19 warn(
+6256.6s 20 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+6257.4s 21 [NbConvertApp] Writing 365083 bytes to __results__.html
