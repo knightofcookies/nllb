@@ -1,0 +1,4 @@
+Average BLEU score (NLTK, considering multiple references) = 2.4151754835243427e-05
+Corpus BLEU score (NLTK, considering multiple references) = 0.5486975553960786
+Corpus BLEU score (sacrebleu, considering multiple references):  BLEU = 0.00 100.0/0.0/0.0/0.0 (BP = 1.000 ratio = 1.000 hyp_len = 1 ref_len = 1)
+Corpus CHRF++ score (sacrebleu, considering multiple references):  chrF2++ = 100.00
