@@ -3,3 +3,5 @@ saved_model/
 datasets/
 tokenized_samanantar_4950k/
 checkpoints/
+ctranslate_model/
+.DS_Store

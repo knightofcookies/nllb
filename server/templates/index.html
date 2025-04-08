@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>English-Khasi Translator</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+        <style>
+            :root {
+                --primary-color: #4a6fa5;
+                --secondary-color: #166088;
+                --accent-color: #4fc3f7;
+                --background-color: #f5f7fa;
+                --text-color: #333;
+                --light-text: #666;
+                --card-bg: #ffffff;
+                --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Poppins", sans-serif;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                line-height: 1.6;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+
+            header {
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                color: var(--secondary-color);
+                position: relative;
+                display: inline-block;
+            }
+
+            h1::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background: var(--accent-color);
+                border-radius: 2px;
+            }
+
+            .subtitle {
+                color: var(--light-text);
+                font-weight: 300;
+                font-size: 1.1rem;
+            }
+
+            .translator-container {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                background: var(--card-bg);
+                border-radius: 15px;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+            }
+
+            .language-selector {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .language-btn {
+                background: none;
+                border: 2px solid var(--primary-color);
+                color: var(--primary-color);
+                padding: 0.5rem 1.5rem;
+                border-radius: 30px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+
+            .language-btn.active {
+                background: var(--primary-color);
+                color: white;
+            }
+
+            .language-btn:hover {
+                transform: translateY(-2px);
+            }
+
+            .translation-boxes {
+                display: flex;
+                gap: 2rem;
+            }
+
+            @media (max-width: 768px) {
+                .translation-boxes {
+                    flex-direction: column;
+                }
+            }
+
+            .text-box {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .text-box-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+
+            .text-label {
+                font-weight: 500;
+                color: var(--secondary-color);
+            }
+
+            .char-count {
+                color: var(--light-text);
+                font-size: 0.8rem;
+            }
+
+            textarea {
+                flex: 1;
+                padding: 1rem;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                resize: none;
+                font-family: inherit;
+                font-size: 1rem;
+                transition: border 0.3s ease;
+            }
+
+            textarea:focus {
+                outline: none;
+                border-color: var(--accent-color);
+                box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.2);
+            }
+
+            .controls {
+                display: flex;
+                justify-content: center;
+                margin-top: 1rem;
+                gap: 1rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                border: none;
+                border-radius: 30px;
+                font-weight: 500;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: all 0.3s ease;
+            }
+
+            .btn-primary {
+                background: var(--primary-color);
+                color: white;
+            }
+
+            .btn-primary:hover {
+                background: var(--secondary-color);
+                transform: translateY(-2px);
+            }
+
+            .btn-secondary {
+                background: #f0f0f0;
+                color: var(--text-color);
+            }
+
+            .btn-secondary:hover {
+                background: #e0e0e0;
+            }
+
+            .info-bar {
+                text-align: center;
+                margin-top: 1rem;
+                color: var(--light-text);
+                font-size: 0.9rem;
+            }
+
+            .loading {
+                display: none;
+                text-align: center;
+                margin: 1rem 0;
+            }
+
+            .spinner {
+                border: 4px solid rgba(0, 0, 0, 0.1);
+                border-radius: 50%;
+                border-top: 4px solid var(--primary-color);
+                width: 30px;
+                height: 30px;
+                animation: spin 1s linear infinite;
+                margin: 0 auto;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            footer {
+                text-align: center;
+                margin-top: 3rem;
+                color: var(--light-text);
+                font-size: 0.9rem;
+            }
+
+            .swap-btn {
+                background: var(--accent-color);
+                color: white;
+                border: none;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                align-self: center;
+                transition: all 0.3s ease;
+            }
+
+            .swap-btn:hover {
+                transform: rotate(180deg) scale(1.1);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>English-Khasi Translator</h1>
+                <p class="subtitle">
+                    Bridging languages with neural machine translation
+                </p>
+            </header>
+
+            <div class="translator-container">
+                <div class="language-selector">
+                    <button class="language-btn active" id="en-to-kha">
+                        English to Khasi
+                    </button>
+                    <button class="language-btn" id="kha-to-en">
+                        Khasi to English
+                    </button>
+                </div>
+
+                <div class="translation-boxes">
+                    <div class="text-box">
+                        <div class="text-box-header">
+                            <span class="text-label" id="source-label"
+                                >English</span
+                            >
+                            <span class="char-count" id="source-count"
+                                >0/500</span
+                            >
+                        </div>
+                        <textarea
+                            id="source-text"
+                            placeholder="Type your text here..."
+                        ></textarea>
+                    </div>
+
+                    <button
+                        class="swap-btn"
+                        id="swap-langs"
+                        title="Swap languages"
+                    >
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+
+                    <div class="text-box">
+                        <div class="text-box-header">
+                            <span class="text-label" id="target-label"
+                                >Khasi</span
+                            >
+                        </div>
+                        <textarea
+                            id="target-text"
+                            placeholder="Translation will appear here..."
+                            readonly
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Translating...</p>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="translate-btn">
+                        <i class="fas fa-language"></i> Translate
+                    </button>
+                    <button class="btn btn-secondary" id="clear-btn">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                </div>
+
+                <div class="info-bar" id="info-bar"></div>
+            </div>
+
+            <footer>
+                <p>
+                    Powered by
+                    <a
+                        href="https://huggingface.co/user10383/nllb-600M-finetune-en-kha"
+                        >🤗 nllb-600M-finetune-en-kha</a
+                    >
+                </p>
+            </footer>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const sourceText = document.getElementById("source-text");
+                const targetText = document.getElementById("target-text");
+                const translateBtn = document.getElementById("translate-btn");
+                const clearBtn = document.getElementById("clear-btn");
+                const enToKhaBtn = document.getElementById("en-to-kha");
+                const khaToEnBtn = document.getElementById("kha-to-en");
+                const swapBtn = document.getElementById("swap-langs");
+                const sourceLabel = document.getElementById("source-label");
+                const targetLabel = document.getElementById("target-label");
+                const sourceCount = document.getElementById("source-count");
+                const loading = document.getElementById("loading");
+                const infoBar = document.getElementById("info-bar");
+
+                let isEnToKha = true;
+
+                // Update character count
+                sourceText.addEventListener("input", function () {
+                    const count = this.value.length;
+                    sourceCount.textContent = `${count}/500`;
+
+                    if (count > 500) {
+                        sourceCount.style.color = "red";
+                    } else {
+                        sourceCount.style.color = "";
+                    }
+                });
+
+                // Translate button click
+                translateBtn.addEventListener("click", async function () {
+                    const text = sourceText.value.trim();
+
+                    if (!text) {
+                        infoBar.textContent =
+                            "Please enter some text to translate";
+                        infoBar.style.color = "red";
+                        return;
+                    }
+
+                    if (text.length > 500) {
+                        infoBar.textContent =
+                            "Text too long (max 500 characters)";
+                        infoBar.style.color = "red";
+                        return;
+                    }
+
+                    loading.style.display = "block";
+                    infoBar.textContent = "";
+
+                    try {
+                        const startTime = performance.now();
+
+                        const response = await fetch("/translate", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                text,
+                                direction: isEnToKha ? "en-kha" : "kha-en",
+                            }),
+                        });
+
+                        const data = await response.json();
+
+                        if (data.error) {
+                            throw new Error(data.error);
+                        }
+
+                        targetText.value = data.translation;
+
+                        const endTime = performance.now();
+                        const processingTime = (
+                            (endTime - startTime) /
+                            1000
+                        ).toFixed(2);
+
+                        infoBar.textContent = `Translation completed in ${data.processing_time} (${processingTime}s total)`;
+                        infoBar.style.color = "green";
+                    } catch (error) {
+                        infoBar.textContent = `Error: ${error.message}`;
+                        infoBar.style.color = "red";
+                    } finally {
+                        loading.style.display = "none";
+                    }
+                });
+
+                // Clear button click
+                clearBtn.addEventListener("click", function () {
+                    sourceText.value = "";
+                    targetText.value = "";
+                    sourceCount.textContent = "0/500";
+                    infoBar.textContent = "";
+                });
+
+                // Language direction buttons
+                enToKhaBtn.addEventListener("click", function () {
+                    if (isEnToKha) return;
+
+                    isEnToKha = true;
+                    updateLanguageUI();
+                });
+
+                khaToEnBtn.addEventListener("click", function () {
+                    if (!isEnToKha) return;
+
+                    isEnToKha = false;
+                    updateLanguageUI();
+                });
+
+                // Swap languages button
+                swapBtn.addEventListener("click", function () {
+                    isEnToKha = !isEnToKha;
+                    updateLanguageUI();
+
+                    // Swap text
+                    const temp = sourceText.value;
+                    sourceText.value = targetText.value;
+                    targetText.value = temp;
+                });
+
+                function updateLanguageUI() {
+                    if (isEnToKha) {
+                        enToKhaBtn.classList.add("active");
+                        khaToEnBtn.classList.remove("active");
+                        sourceLabel.textContent = "English";
+                        targetLabel.textContent = "Khasi";
+                        sourceText.placeholder =
+                            "Type your English text here...";
+                        targetText.placeholder =
+                            "Translation will appear in Khasi...";
+                    } else {
+                        enToKhaBtn.classList.remove("active");
+                        khaToEnBtn.classList.add("active");
+                        sourceLabel.textContent = "Khasi";
+                        targetLabel.textContent = "English";
+                        sourceText.placeholder = "Type your Khasi text here...";
+                        targetText.placeholder =
+                            "Translation will appear in English...";
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
